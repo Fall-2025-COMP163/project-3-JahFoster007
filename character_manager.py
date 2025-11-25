@@ -35,21 +35,69 @@ def create_character(name, character_class):
     Raises: InvalidCharacterClassError if class is not valid
     """
     # TODO: Implement character creation
-    # Validate character_class first
-    # Example base stats:
-    # Warrior: health=120, strength=15, magic=5
-    # Mage: health=80, strength=8, magic=20
-    # Rogue: health=90, strength=12, magic=10
-    # Cleric: health=100, strength=10, magic=15
+    valid_classes = {
+        "Warrior": {"health": 120, "strength": 15, "magic": 5},
+        "Mage": {"health": 80, "strength": 8, "magic": 20},
+        "Rogue": {"health": 90, "strength": 12, "magic": 10},
+        "Cleric": {"health": 100, "strength": 10, "magic": 15}
+    }
+    if character_class not in valid_classes:
+            raise InvalidCharacterClassError('Character class is invalid')
+    base = valid_classes[character_class]
+
+    character = {
+        "name": name,
+        "class": character_class,
+        "level": 1,
+        "experience": 0,
+        "gold": 100,
+        "health": base['health'],
+        "strength": base["strength"],
+        "magic": base["magic"],
+        'inventory' : [],
+        "active_quests": [],
+        "completed_quests": []
+}
+    return character
+hero = create_character("arlen", "Mage")
+print(hero)
+
+    #                           ^^^^^
+    #               Validate character_class first
+    #                   Example base stats:
+    #              Warrior: health=120, strength=15, magic=5
+    #              Mage: health=80, strength=8, magic=20
+    #              Rogue: health=90, strength=12, magic=10
+    #              Cleric: health=100, strength=10, magic=15
+
     
     # All characters start with:
     # - level=1, experience=0, gold=100
     # - inventory=[], active_quests=[], completed_quests=[]
     
     # Raise InvalidCharacterClassError if class not in valid list
-    pass
 
+import os
 def save_character(character, save_directory="data/save_games"):
+    if not os.path.exists(save_directory):
+        return False
+    filename = character['name']+ '_save.txt'
+    filepath = save_directory + '/' + filename
+    with open(save_directory, "w") as f:
+        with open(filepath, "w") as f:
+            f.write(f'NAME: {character["name"]}\n')
+            f.write(f'CLASS: {character["class"]}\n')
+            f.write(f'LEVEL: {character["level"]}\n')
+            f.write(f'HEALTH: {character["health"]}\n')
+            f.write(f'MAX_HEALTH: {character["max_health"]}\n')
+            f.write(f'STRENGTH: {character["strength"]}\n')
+            f.write(f'MAGIC: {character["magic"]}\n')
+            f.write(f'EXPERIENCE: {character["experience"]}\n')
+            f.write(f'GOLD: {character["gold"]}\n')
+            f.write("INVENTORY: " + ",".join(character["inventory"]) + "\n")
+            f.write("ACTIVE_QUESTS: " + ",".join(character["active_quests"]) + "\n")
+            f.write("COMPLETED_QUESTS: " + ",".join(character["completed_quests"]) + "\n")
+    raise (PermissionError, IOError)
     """
     Save character to file
     
@@ -79,6 +127,15 @@ def save_character(character, save_directory="data/save_games"):
     pass
 
 def load_character(character_name, save_directory="data/save_games"):
+    filename = os.path.join(save_directory, f"{character_name}_save.txt")
+    if not os.path.exists(filename):
+        raise CharacterNotFoundError(f'save file for {character_name} not found')
+    try:
+        with open(filename, "r") as f:
+            lines = f.readlines()
+    except Exception as e:
+        raise SaveFileCorruptedError (f"{character_name} file can't be read")
+
     """
     Load character from save file
     
