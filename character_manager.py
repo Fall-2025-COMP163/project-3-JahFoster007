@@ -82,11 +82,11 @@ print(hero)
 
 
 def save_character(character, save_directory="data/save_games"):
-    os.makedirs(save_directory, exist_ok=True)
+    os.makedirs(save_directory)
     filename = os.path.join(save_directory, f"{character['name']}_save.txt")
 
     try:
-        with open(filename, "w", encoding="utf-8") as f:
+        with open(filename, "w") as f:
             for key, value in character.items():
                 key_str = key.upper()
                 f.write(f"{key_str}: {value}\n")
@@ -131,7 +131,7 @@ def load_character(character_name, save_directory="data/save_games"):
 
     # Try reading file
     try:
-        with open(filename, "r", encoding="utf-8") as f:
+        with open(filename, "r") as f:
             lines = f.readlines()
     except Exception as e:
         raise SaveFileCorruptedError(f"Error: {e} — {character_name} file can't be read")

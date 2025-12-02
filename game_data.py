@@ -21,11 +21,12 @@ from custom_exceptions import (
 # ============================================================================
 
 def load_quests(filename="data/quests.txt"):
+    #check if file exists, if not raises an ERROR
     if not os.path.exists(filename):
         raise MissingDataFileError(f"Missing file: {filename}")
-
+        #opens file in read mode, reads lines and strips white space
     try:
-        with open(filename, "r", encoding="utf-8") as f:
+        with open(filename, "r") as f:
             content = f.read().strip()
     except Exception:
         raise CorruptedDataError("Error reading quests file")
@@ -69,7 +70,7 @@ def load_items(filename="data/items.txt"):
         raise MissingDataFileError(f"Missing file: {filename}")
 
     try:
-        with open(filename, "r", encoding="utf-8") as f:
+        with open(filename, "r") as f:
             content = f.read().strip()
     except Exception:
         raise CorruptedDataError("Error reading items file")
@@ -164,10 +165,10 @@ def validate_item_data(item_dict):
     # TODO: Implement validation
 
 def create_default_data_files():
-    os.makedirs("data", exist_ok=True)
+    os.makedirs("data")
 
     if not os.path.exists("data/quests.txt"):
-        with open("data/quests.txt", "w", encoding="utf-8") as f:
+        with open("data/quests.txt", "w") as f:
             f.write(
                 "QUEST_ID: first_steps\n"
                 "TITLE: First Steps\n"
@@ -195,7 +196,7 @@ def create_default_data_files():
             )
 
     if not os.path.exists("data/items.txt"):
-        with open("data/items.txt", "w", encoding="utf-8") as f:
+        with open("data/items.txt", "w") as f:
             f.write(
                 "ITEM_ID: health_potion\n"
                 "NAME: Health Potion\n"
