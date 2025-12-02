@@ -220,7 +220,7 @@ def game_loop():
         except Exception as e:
             print(f"Warning: failed to auto-save: {e}")
 
-    global game_running, current_character
+
 
     game_running = True
     
