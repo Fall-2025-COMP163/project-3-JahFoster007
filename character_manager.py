@@ -82,7 +82,7 @@ print(hero)
 
 
 def save_character(character, save_directory="data/save_games"):
-    os.makedirs(save_directory)
+    os.makedirs(save_directory, exist_ok=True)
     filename = os.path.join(save_directory, f"{character['name']}_save.txt")
 
     try:

@@ -165,7 +165,7 @@ def validate_item_data(item_dict):
     # TODO: Implement validation
 
 def create_default_data_files():
-    os.makedirs("data")
+    os.makedirs("data", exist_ok=True)
 
     if not os.path.exists("data/quests.txt"):
         with open("data/quests.txt", "w") as f:
