@@ -35,7 +35,7 @@ def accept_quest(character, quest_id, quest_data_dict):
         raise InsufficientLevelError(f'Must be level {quest['required_level']} to accept' "{quest_id}.")
 
     prereq = quest["prerequisite"]
-    if prereq != 'none' and prereq not in character["completed_quests"]:
+    if prereq != 'NONE' and prereq not in character["completed_quests"]:
         raise QuestRequirementsNotMetError(f"Must complete {prereq} before advancing.")
 
     character["active_quests"].append(quest_id)
