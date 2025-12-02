@@ -54,7 +54,7 @@ def create_enemy(enemy_type):
     if enemy_type not in enemies:
         raise InvalidTargetError(f'Unknown enemy type: {enemy_type}')
 
-    raise enemies[enemy_type].copy()
+    return enemies[enemy_type].copy()
     """
     Create an enemy based on type
     

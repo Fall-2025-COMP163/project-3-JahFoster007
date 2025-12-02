@@ -298,6 +298,7 @@ def view_character_stats():
 
 def view_inventory():
     """Display and manage inventory"""
+    global current_character, all_items
     if not current_character:
         print("No character loaded.")
         return
@@ -376,7 +377,7 @@ def view_inventory():
             break
         else:
             print("Invalid input. Choose 1-5.")
-    global current_character, all_items
+
     
     # TODO: Implement inventory menu
     # Show current inventory

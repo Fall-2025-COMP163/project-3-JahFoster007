@@ -31,7 +31,7 @@ def accept_quest(character, quest_id, quest_data_dict):
         raise QuestAlreadyCompletedError(f" '{quest_id}' has already been completed.")
     if quest_id in character["active_quests"]:
         raise QuestRequirementsNotMetError(f"'{quest_id}' already active.")
-    if character.get("level,1") < quest['required_level']:
+    if character.get("level",1) < quest['required_level']:
         raise InsufficientLevelError(f'Must be level {quest['required_level']} to accept' "{quest_id}.")
 
     prereq = quest["prerequisite"]

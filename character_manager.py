@@ -54,6 +54,7 @@ def create_character(name, character_class):
         "experience": 0,
         "gold": 100,
         "health": base['health'],
+        "max_health": base['health'],
         "strength": base["strength"],
         "magic": base["magic"],
         'inventory' : [],
