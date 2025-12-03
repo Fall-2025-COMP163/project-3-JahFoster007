@@ -128,11 +128,41 @@ This project encourages creativity! Here's what you can customize:
 Document your project with:
 
 1. **Module Architecture:** Explain your module organization
-2. **Exception Strategy:** Describe when/why you raise specific exceptions
-3. **Design Choices:** Justify major decisions
-4. **AI Usage:** Detail what AI assistance you used
-5. **How to Play:** Instructions for running the game
+  project is organized into modular files to keep the game logic clean
+  game_data.py — Loads, parses, and validates quest and item data from text files.
+  custom_exceptions.py — Defines specialized exceptions for data-related errors.
+  save_load.py (if included) — Handles loading and saving character files.
+  main.py — The entry point for running the game.
+  data/ — Contains quests.txt and items.txt, which store game content.
 
+3. **Exception Strategy:** Describe when/why you raise specific exceptions
+  Exceptions are used to distinguish different categories of problems so the game can react appropriately:
+
+MissingDataFileError:
+    Raised when a required file (like quests.txt or items.txt) does not exist. This prevents the program from running with missing game content.
+ 
+  InvalidDataFormatError:
+    Raised when a file contains incorrectly formatted data (e.g., missing a required field, invalid type, or missing colon separator). This ensures       that corrupted or poorly structured data cannot break the game.
+
+CorruptedDataError:
+    Raised when a file exists but cannot be read properly (I/O issues, unreadable contents). The game stops early so it doesn't run with incomplete       or unpredictable data.
+
+4. **Design Choices:** Justify major decisions
+   Used plain text for quests and items to make them easily editable
+   parsing/formatting broken up into different sections
+
+6. **AI Usage:** Detail what AI assistance you used
+ Explaining Python concepts (e.g., exceptions, file handling, os functions).
+
+Helping debug parsing and validation logic.
+
+Adding comments and documentation.
+
+
+7. **How to Play:** Instructions for running the game
+Open a terminal inside the project directory and run:
+python main.py
+Follow the prompts and the game will guide you through the entire process
 ### What to Submit:
 
 1. **GitHub Repository:** Your completed multi-module project
